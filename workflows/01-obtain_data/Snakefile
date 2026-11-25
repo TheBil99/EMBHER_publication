@@ -1,0 +1,37 @@
+# Public inputs of the paper -> data/raw/. Run from the project root:
+#   snakemake -s workflows/01-obtain_data/Snakefile --use-conda --cores 1 [--profile <your slurm profile>] [target ...]
+# Controlled-access GTEx data (dbGaP phs000424) and CisBP-RNA are placed by hand: see README.md in this directory.
+import os
+
+SAVE_PARAMS  = {"sep": "\t", "index": False, "compression": "gzip"}
+
+DATA_DIR = os.path.join("data")
+RAW_DIR = os.path.join(DATA_DIR,"raw")
+ARTICLES_DIR = os.path.join(RAW_DIR,"articles")
+
+include: "rules/gencode.smk"
+include: "rules/borzoi.smk"
+include: "rules/1000genomes.smk"
+include: "rules/geuvadis.smk"
+include: "rules/genomi_ancestry_panel.smk"
+include: "rules/gtex.smk"
+include: "rules/annotations.smk"
+
+rule all:
+    input:
+        # reference genome and annotation (GENCODE v46)
+        os.path.join(RAW_DIR,"GENCODE","human","release_46","GRCh38.primary_assembly.genome.fa.gz"),
+        os.path.join(RAW_DIR,"GENCODE","human","release_46","gencode.v46.annotation.gtf.gz"),
+        os.path.join(RAW_DIR,"GENCODE","human","release_46","gencode.v46.annotation.gtf.parquet"),
+        # Borzoi replicate 0 weights
+        os.path.join(ARTICLES_DIR,"Hingerl2024","model_weights","borzoi-replicate-0"),
+        # GEUVADIS expression and metadata, genotype PCs of the 1000G panel
+        os.path.join(RAW_DIR,"GEUVADIS","GD660.GeneQuantRPKM.txt.gz"),
+        os.path.join(RAW_DIR,"GEUVADIS","E-GEUV-1.sdrf.txt"),
+        os.path.join(RAW_DIR,"GenomiAncestryPanel","panel-1000g-30x-grch38-1.0.0","reference_scores.tsv"),
+        # public GTEx v10 files
+        expand(os.path.join(RAW_DIR,"GTEx","v10","{name}"), name=GTEX_FILES),
+        # attribution annotations
+        os.path.join(HOCOMOCO_DIR,"H13CORE_meme_format.meme"),
+        os.path.join(PHYLOP_DIR,"cactus241way.phyloP.bw"),
+        expand(os.path.join(GNOMAD_DIR,"gnomad.genomes.v4.1.1.sites.chr{chrom}.vcf.bgz"), chrom=CHROMS),

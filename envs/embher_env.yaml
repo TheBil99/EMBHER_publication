@@ -1,0 +1,32 @@
+# CPU analysis environment: workflows 02-05, 07-14, 16, 17, 99 (everything that does not run Borzoi).
+#   conda env create -f envs/embher_env.yaml        # or: conda env update -n embher_env -f envs/embher_env.yaml
+# EMBHER (embher.heritability, embher.embedding) is pinned at commit ebbad74;
+# changing the pin can change numerical results.
+name: embher_env
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.11.15
+  - numpy=2.4.6
+  - scipy=1.17.1
+  - pandas=3.0.3
+  - scikit-learn=1.9.0
+  - statsmodels
+  - matplotlib=3.11.0
+  - seaborn
+  - h5py=3.16.0
+  - ml_dtypes=0.5.4 # bfloat16 decoding of embedding H5s
+  - pyarrow=24.0.0
+  - pysam=0.24.1
+  - wget            # workflow 01
+  - huggingface_hub # workflow 01 (Borzoi weights)
+  - pyyaml
+  - bcftools
+  - htslib          # bgzip, tabix
+  - samtools
+  - plink2
+  - snakemake       # workflow 01 only
+  - pip=26.1.2
+  - pip:
+      - "embher @ git+https://github.com/TheBil99/EMBHER.git@ebbad746726e250215c5a7ec59b5c0eb4ba0a3bc"

@@ -1,0 +1,20 @@
+item	workflow_chain	plot_script	reads
+Fig. 2a	10, 11	17-plots/scripts/plot_fig_2.py	results/11-embedding_heritability/gtex/hi_q_random500, results/10-genotype_heritability/gtex/hi_q_gtex_genes
+Fig. 2b	12	17-plots/scripts/plot_fig_2.py	results/12-heritability_over_layers/hi_q_random500 and hi_q_random500_borzoi_random
+Fig. 3a	13	17-plots/scripts/plot_fig_3.py	results/13-ancestry_prediction/hi_q_random500
+Fig. 3b	14	17-plots/scripts/plot_fig_3.py	results/14-ancestry_effect_embeddings/faap20/eur_afr
+Fig. 3c	15	17-plots/scripts/plot_fig_3.py	results/15-borzoi_attribution/hi_q_random500
+Fig. 4b	16	17-plots/scripts/plot_fig_4b.py	results/16-rare_heritability_permutations/gtex/hi_q_gtex_genes_maf_le0.01
+Supp. Figs. 1-2 (genotype)	07, 08	17-plots/scripts/plot_fig_s1_s4.py	results/08-genotype_heritability_simulation_study/10_random_genes_he and 10_random_genes_reml
+Supp. Figs. 3-4 (embedding)	07, 09	17-plots/scripts/plot_fig_s1_s4.py	results/09-embedding_heritability_simulation_study/10_random_genes_he and 10_random_genes_reml
+Supp. Fig. 5	02, 04, 05, 06, 10, 11 (geuvadis)	17-plots/scripts/plot_fig_s5.py	results/11-embedding_heritability/geuvadis/hi_q_geuvadis_random500, results/10-genotype_heritability/geuvadis/hi_q_geuvadis_genes
+Supp. Fig. 6	11, 12	17-plots/scripts/plot_fig_s6.py	results/12-heritability_over_layers/hi_q_random500
+Supp. Fig. 7	13	17-plots/scripts/plot_fig_s7.py	results/13-ancestry_prediction/hi_q_random500
+Supp. Fig. 8	16	17-plots/scripts/plot_fig_s8.py	results/16-rare_heritability_permutations/gtex/hi_q_gtex_genes_maf_le0.01
+Supp. Table 1	03, 10	17-plots/scripts/make_table_s1.py	results/10-genotype_heritability/gtex/hi_q_gtex_genes
+Supp. Table 2	15	17-plots/scripts/make_table_s2.py	one workflow-06 H5, workflows/15-borzoi_attribution/scripts/layer_order.py
+Supp. Table 3	12	17-plots/scripts/make_table_s3.py	results/12-heritability_over_layers/hi_q_random500 and hi_q_random500_borzoi_random
+Supp. Table 4	13	17-plots/scripts/make_table_s4.py	results/13-ancestry_prediction/hi_q_random500
+Supp. Table 5	15	17-plots/scripts/make_table_s5.py	results/15-borzoi_attribution/hi_q_random500/summary
+Supp. Table 6	16	17-plots/scripts/make_table_s6.py	results/16-rare_heritability_permutations/gtex/hi_q_gtex_genes_maf_le0.01
+Intermediate files (Zenodo)	15, 99	99-intermediate_files/intermediate_files.nf	results/15-borzoi_attribution/hi_q_random500

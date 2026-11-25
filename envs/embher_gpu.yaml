@@ -1,0 +1,158 @@
+# GPU environment: Borzoi capture and attribution (workflows 06, 15, 95, 98).
+#   sbatch src/scripts/build_embher_gpu_env.sh        # builds this file, then the three --no-deps installs below
+# conda part: the torch / CUDA stack, pinned as used for the paper. pip part: what the four workflows import
+# plus the dependencies of decima, grelu and embher, from PyPI (no forks, no local checkouts).
+# decima, grelu, enformer-pytorch and embher[attribution] are installed by the script with `pip install --no-deps`
+# (see EMBHER_COMMIT there): every grelu release pins captum==0.5.0, a 2022 release, while this env
+# runs captum 0.9.0 as the paper's runs did, so pip's resolver cannot satisfy them together. Same for
+# enformer-pytorch (a grelu dependency, pins transformers==4.56.2; borzoi-pytorch needs >=4.57.6), installed
+# --no-deps as well.
+# pytorch / libtorch are pinned to the CUDA 13.0 build the paper's runs used (exact build strings): without them
+# conda picks the CPU build on a machine without a GPU driver. That build needs CUDA visible to conda, so on a
+# machine without a GPU build with CONDA_OVERRIDE_CUDA set (build_embher_gpu_env.sh does).
+# Changing the embher pin can change numerical results.
+name: embher_gpu
+channels:
+  - conda-forge
+dependencies:
+  - _openmp_mutex=4.5
+  - bzip2=1.0.8
+  - ca-certificates=2026.7.22
+  - cpython=3.12.13
+  - cuda-crt-tools=13.3.73
+  - cuda-cudart=13.3.29
+  - cuda-cudart_linux-64=13.3.29
+  - cuda-cuobjdump=13.3.73
+  - cuda-cupti=13.3.75
+  - cuda-nvcc-tools=13.3.73
+  - cuda-nvdisasm=13.3.73
+  - cuda-nvrtc=13.3.33
+  - cuda-nvtx=13.3.29
+  - cuda-nvvm-tools=13.3.73
+  - cuda-version=13.3
+  - filelock=3.32.0
+  - fmt=12.1.0
+  - fsspec=2026.6.0
+  - gmp=6.3.0
+  - gmpy2=2.3.0
+  - icu=78.3
+  - jinja2=3.1.6
+  - ld_impl_linux-64=2.46.1
+  - libabseil=20260526.0
+  - libblas=3.11.0
+  - libcap=2.78
+  - libcblas=3.11.0
+  - libcublas=13.6.0.2
+  - libcudnn=9.25.0.15
+  - libcudss=0.8.0.10
+  - libcufft=12.3.0.29
+  - libcufile=1.18.1.6
+  - libcurand=10.4.3.29
+  - libcusolver=12.2.6.9
+  - libcusparse=12.8.2.51
+  - libexpat=2.8.1
+  - libffi=3.5.2
+  - libgcc=15.2.0
+  - libgcc-ng=15.2.0
+  - libhwloc=2.13.0
+  - libiconv=1.18
+  - liblapack=3.11.0
+  - liblzma=5.8.3
+  - libmagma=2.10.0
+  - libnl=3.11.0
+  - libnsl=2.0.1
+  - libnvjitlink=13.3.33
+  - libprotobuf=7.35.1
+  - libsqlite=3.53.4
+  - libstdcxx=15.2.0
+  - libstdcxx-ng=15.2.0
+  - libsystemd0=261.1
+  - libtorch=2.13.0=cuda130_mkl_h66e912b_300
+  - libudev1=261.1
+  - libuuid=2.42.2
+  - libuv=1.52.1
+  - libxcrypt=4.4.36
+  - libxml2=2.15.3
+  - libxml2-16=2.15.3
+  - libzlib=1.3.2
+  - llvm-openmp=22.1.8
+  - markupsafe=3.0.3
+  - mkl=2026.1.0
+  - mpc=1.4.0
+  - mpfr=4.2.2
+  - mpmath=1.4.1
+  - nccl=2.30.7.1
+  - ncurses=6.6
+  - networkx=3.6.1
+  - numpy=2.5.1
+  - onednn=3.12
+  - onemkl-license=2026.1.0
+  - openssl=3.6.3
+  - optree=0.19.1
+  - packaging=26.2
+  - pip=26.1.2
+  - pybind11=3.0.3
+  - pybind11-abi=11
+  - pybind11-global=3.0.3
+  - python=3.12.13
+  - python_abi=3.12
+  - pytorch=2.13.0=cuda130_mkl_py312_he62fb74_300
+  - rdma-core=63.0
+  - readline=8.3
+  - setuptools=81.0.0
+  - sleef=3.9.0
+  - sympy=1.14.0
+  - tbb=2023.0.0
+  - tk=8.6.13
+  - triton=3.7.1
+  - typing-extensions=4.16.0
+  - typing_extensions=4.16.0
+  - tzdata=2026c
+  - wheel=0.47.0
+  - zstd=1.5.7
+  - pip:
+      - borzoi-pytorch==0.5.1
+      - captum==0.9.0
+      - tangermeme==1.5.0
+      - pyBigWig==0.3.26
+      - h5py==3.16.0
+      - pandas==3.0.5
+      - scipy==1.18.1
+      - pysam==0.24.0
+      - pyarrow==25.0.0
+      - numba==0.67.0
+      - ml-dtypes==0.6.0
+      - matplotlib==3.11.2
+      - tqdm==4.70.0
+      - pyyaml==6.0.3
+      - transformers==4.57.6
+      - huggingface-hub==0.36.2
+      # decima 0.7.0 dependencies
+      - anndata==0.13.4
+      - bioframe==0.8.0
+      - click==8.4.2
+      - faster-modisco-lite==3.0.0
+      - genomepy==0.16.4
+      - lightning==2.6.6
+      - more-itertools==11.1.0
+      - pyfaidx==0.9.0.4
+      - safetensors==0.8.0
+      - scikit-learn==1.9.1
+      - torchmetrics==1.9.0
+      - wandb==0.30.0
+      # grelu 1.2.0 dependencies (incl. enformer-pytorch's einops and polars)
+      - biopython==1.88
+      - einops==0.8.2
+      - polars==1.44.2
+      - polars-runtime-32==1.44.2
+      - importlib-resources==7.1.0
+      - ledidi==2.2.0
+      - logomaker==0.8.7
+      - memelite==0.5.0
+      - modisco-lite==2.4.0
+      - plotnine==0.15.8
+      - pygenomeviz==1.7.0
+      - pyjaspar==4.0.0
+      - pytorch-lightning==2.6.6
+      - seaborn==0.13.2
+      - statsmodels==0.15.0
